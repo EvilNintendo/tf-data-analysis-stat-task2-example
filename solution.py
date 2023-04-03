@@ -10,8 +10,8 @@ def solution(p: float, x: np.array) -> tuple:
     alpha = 1 - p
     n = len(x)
     mean_x = np.mean(x)
-    s = np.sqrt(np.sum((x - mean_x) ** 2) / (n - 1))
-    t = norm.ppf(1 - alpha / 2)
-    left = mean_x - t * s / np.sqrt(n)
-    right = mean_x + t * s / np.sqrt(n)
-    return (left, right)
+    std_x = np.std(x, ddof=1)
+    t_alpha_2 = t.ppf(1 - alpha / 2, n - 1)
+    left_bound = mean_x - t_alpha_2 * std_x / np.sqrt(n)
+    right_bound = mean_x + t_alpha_2 * std_x / np.sqrt(n)
+    return (left_bound, right_bound)
